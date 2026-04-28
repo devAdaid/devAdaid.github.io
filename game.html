@@ -1,4 +1,5 @@
-<!-- game.html -->
+<!-- game.html (썸네일 없이 클릭해야 WebGL 실행) -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,7 +8,6 @@
 <title>adaid</title>
 
 <link rel="stylesheet" href="css/style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
@@ -17,12 +17,6 @@
 </nav>
 
 <div class="wrap">
-
-  <div class="breadcrumb">
-    <a href="index.html">홈</a>
-    /
-    <span id="breadcrumb-title">게임</span>
-  </div>
 
   <article>
 
@@ -39,20 +33,16 @@
 </div>
 
 <script>
-marked.setOptions({
-  breaks:true
-});
+marked.setOptions({ breaks:true });
 
 async function loadGame(){
 
   const params = new URLSearchParams(location.search);
   const id = params.get('id');
-
   const content = document.getElementById('content');
 
   if(!id){
-    content.innerHTML =
-      '<p class="status">게임 ID가 없습니다.</p>';
+    content.innerHTML = '<p class="status">게임 ID가 없습니다.</p>';
     return;
   }
 
@@ -63,22 +53,83 @@ async function loadGame(){
 
     const text = await res.text();
 
+    /* 1차 markdown 렌더 */
     content.innerHTML = marked.parse(text);
 
+    /* 제목 */
     const h1 = content.querySelector('h1');
-
     if(h1){
       document.title = `${h1.textContent} — adaid`;
-      document.getElementById('breadcrumb-title').textContent =
-        h1.textContent;
     }
 
-  }catch(e){
+    /* [play:주소] 자동 치환 */
+    replacePlayBlocks();
 
+  }catch(e){
     content.innerHTML =
       `<p class="status">games/${id}.md 파일을 찾을 수 없습니다.</p>`;
   }
 }
+
+function replacePlayBlocks(){
+
+  const walker = document.createTreeWalker(
+    document.getElementById('content'),
+    NodeFilter.SHOW_TEXT
+  );
+
+  const targets = [];
+
+  while(walker.nextNode()){
+    const node = walker.currentNode;
+
+    if(node.nodeValue.includes('[play:')){
+      targets.push(node);
+    }
+  }
+
+  targets.forEach(node => {
+
+    const match = node.nodeValue.match(/\[play:(.*?)\]/);
+    if(!match) return;
+
+    const src = match[1].trim();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'game-embed';
+    wrap.dataset.src = src;
+
+    wrap.innerHTML = `
+    <div class="game-launch">
+    <div class="game-launch-icon">▶</div>
+    <div class="game-launch-title">WebGL 게임 실행</div>
+    <div class="game-launch-sub">클릭하면 로딩이 시작됩니다</div>
+    <button type="button">플레이하기</button>
+    </div>
+    `;
+
+    node.parentNode.replaceChild(wrap, node);
+  });
+}
+
+document.addEventListener('click', e => {
+
+  const btn = e.target.closest('.game-launch button');
+  if(!btn) return;
+
+  const box = btn.closest('.game-embed');
+  if(!box) return;
+
+  const src = box.dataset.src;
+
+  box.innerHTML = `
+    <iframe
+      src="${src}"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  `;
+});
 
 loadGame();
 </script>

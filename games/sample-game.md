@@ -32,10 +32,14 @@
 
 ## 플레이
 
-WebGL 빌드가 있다면 아래처럼 iframe으로 바로 삽입할 수 있습니다.  
-빌드 폴더를 `games/sample-game-webgl/` 에 넣고 src 경로를 맞춰주세요.
+짧은 소개글입니다.
 
-<iframe src="../games/Chocolate2048/Chocolate2048_WebGL/index.html" width="600" height="960" allowfullscreen></iframe>
+[play:games/Chocolate2048/Chocolate2048_WebGL/index.html]
+
+조작법:
+
+- WASD 이동
+- Space 점프
 
 ## 개발 노트
 

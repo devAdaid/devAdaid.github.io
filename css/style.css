@@ -390,3 +390,84 @@ article{
   }
 
 }
+.game-launch{
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 24px;
+}
+
+.game-launch-icon{
+  font-size:54px;
+  line-height:1;
+  opacity:.9;
+  margin-bottom:26px;
+}
+
+.game-launch-title{
+  font-size:38px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.game-launch-sub{
+  font-size:17px;
+  color:var(--muted);
+  margin-bottom:28px;
+}
+
+.game-launch button{
+  padding:14px 30px;
+  border:none;
+  border-radius:999px;
+  background:#38bdf8;
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.game-launch button:hover{
+  transform:translateY(-2px);
+}
+
+.game-embed iframe{
+  width:100%;
+  min-height:520px;
+  border:none;
+  display:block;
+}
+
+@media(max-width:700px){
+
+  .game-launch{
+    min-height:300px;
+    padding:30px 18px;
+  }
+
+  .game-launch-icon{
+    font-size:42px;
+    margin-bottom:18px;
+  }
+
+  .game-launch-title{
+    font-size:28px;
+  }
+
+  .game-launch-sub{
+    font-size:15px;
+  }
+
+  .game-launch button{
+    font-size:16px;
+    padding:12px 24px;
+  }
+
+  .game-embed iframe{
+    min-height:340px;
+  }
+}
