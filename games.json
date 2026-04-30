@@ -1,14 +1,38 @@
 [
   {
-    "id": "sample-game",
-    "title": "샘플 게임",
-    "thumbnail": "thumbnails/sample-game.png",
-    "description": "게임 한 줄 소개를 여기에 씁니다."
+    "id": "TheLastWave",
+    "title": "The Last Wave",
+    "thumbnail": "games/TheLastWave/thumb.png",
+    "description": "추리, 스토리"
   },
   {
-    "id": "sample-game2",
-    "title": "샘플 게임2",
-    "thumbnail": "thumbnails/sample-game2.png",
-    "description": "게임 한 줄 소개를 여기에 씁니다."
+    "id": "TheSecretHero",
+    "title": "The Secret Hero",
+    "thumbnail": "games/TheSecretHero/thumb.png",
+    "description": "시뮬레이션, 스토리"
+  },
+  {
+    "id": "RobotManager",
+    "title": "로봇 관리자",
+    "thumbnail": "games/RobotManager/thumb.png",
+    "description": "추리, 스토리, 어드벤처"
+  },
+  {
+    "id": "BlackAfterlife",
+    "title": "저승도 블랙기업이라고?! Demo",
+    "thumbnail": "games/BlackAfterlife/thumb.png",
+    "description": "스토리, 로맨스"
+  },
+  {
+    "id": "HealingGacha",
+    "title": "힐링 가챠",
+    "thumbnail": "games/HealingGacha/thumb.png",
+    "description": "가챠, 캐주얼"
+  },
+  {
+    "id": "HugMe",
+    "title": "안아줘요 (팬 게임)",
+    "thumbnail": "games/HugMe/thumb.png",
+    "description": "캐주얼"
   }
 ]
