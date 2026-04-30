@@ -12,7 +12,15 @@
 
 <nav>
   <a href="index.html" class="brand">ADAID</a>
+  <button class="share-btn" onclick="openQR()">공유</button>
 </nav>
+
+<div class="qr-overlay" id="qr-overlay" onclick="closeQR()">
+  <div class="qr-modal" onclick="event.stopPropagation()">
+    <button class="qr-close" onclick="closeQR()">✕</button>
+    <img src="QR.jpg" alt="QR 코드">
+  </div>
+</div>
 
 <main class="container">
 
@@ -122,6 +130,14 @@ async function loadGames(){
 }
 
 loadGames();
+
+function openQR(){
+  document.getElementById('qr-overlay').classList.add('active');
+}
+function closeQR(){
+  document.getElementById('qr-overlay').classList.remove('active');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeQR(); });
 </script>
 
 </body>
