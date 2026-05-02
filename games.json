@@ -4,6 +4,7 @@
     "title": "The Last Wave",
     "thumbnail": "games/TheLastWave/thumb.png",
     "description": "추리, 스토리",
+    "tagline": "저승사자(使者)와 함께 사자(死者)들의 신원을 찾고, 그들의 한을 풀어주는 추리 게임.",
     "languages": ["ko", "en", "ja"]
   },
   {
@@ -11,6 +12,7 @@
     "title": "The Secret Hero",
     "thumbnail": "games/TheSecretHero/thumb.png",
     "description": "시뮬레이션, 스토리",
+    "tagline": "턴마다 선택을 통해 스탯을 올리며 게임오버를 피해야 하는 게임, 그리고...",
     "languages": ["ko", "en"]
   },
   {
@@ -18,6 +20,7 @@
     "title": "로봇 관리자",
     "thumbnail": "games/RobotManager/thumb.png",
     "description": "추리, 스토리, 어드벤처",
+    "tagline": "로봇을 조종해 우주선의 비밀을 밝혀내는 비선형 추리 미스테리 퍼즐게임",
     "languages": ["ko"]
   },
   {
@@ -25,6 +28,7 @@
     "title": "저승도 블랙기업이라고?! Demo",
     "thumbnail": "games/BlackAfterlife/thumb.png",
     "description": "스토리, 로맨스",
+    "tagline": "K-저승에 어서오세요!",
     "languages": ["ko", "en"]
   },
   {
@@ -32,6 +36,7 @@
     "title": "초콜릿 2048",
     "thumbnail": "games/Chocolate2048/thumb.png",
     "description": "캐주얼",
+    "tagline": "자유로운 캐릭터 꾸미기가 가능한 2048 게임",
     "languages": ["ko", "en", "ja"]
   },
   {
@@ -39,6 +44,7 @@
     "title": "7월 21일",
     "thumbnail": "games/July21st/thumb.png",
     "description": "스토리",
+    "tagline": "텍스트 1000자 미만의 비주얼 노벨",
     "languages": ["ko", "en"]
   },
   {
@@ -46,6 +52,7 @@
     "title": "힐링 가챠",
     "thumbnail": "games/HealingGacha/thumb.png",
     "description": "가챠, 캐주얼",
+    "tagline": "가챠를 통해 돈을 모으고 가챠를 반복할 수 있는 캐주얼 시뮬레이션 게임",
     "languages": ["ko"]
   },
   {
@@ -53,6 +60,7 @@
     "title": "안아줘요 (팬 게임)",
     "thumbnail": "games/HugMe/thumb.png",
     "description": "캐주얼",
+    "tagline": "아티스트 '부드라미'님의 날다람쥐 캐릭터를 안아줄 수 있는 2차 창작 팬 게임.",
     "languages": ["ko"]
   }
 ]

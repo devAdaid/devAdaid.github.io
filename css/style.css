@@ -240,10 +240,27 @@ nav{
   margin-bottom:8px;
 }
 
-.card-desc{
-  font-size:14px;
+.card-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+
+.card-tag{
+  font-size:12px;
+  padding:2px 8px;
+  border-radius:99px;
+  background:var(--card);
+  border:1px solid var(--border, #e2e8f0);
   color:var(--muted);
-  line-height:1.65;
+  white-space:nowrap;
+}
+
+.card-tagline{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.5;
 }
 
 .card-langs{

@@ -110,7 +110,12 @@ async function loadGames(){
           <p class="card-title">${g.title}</p>
 
           ${g.description
-            ? `<p class="card-desc">${g.description}</p>`
+            ? `<div class="card-tags">${g.description.split(',').map(t => `<span class="card-tag">${t.trim()}</span>`).join('')}</div>`
+            : ''
+          }
+
+          ${g.tagline
+            ? `<p class="card-tagline">${g.tagline}</p>`
             : ''
           }
 
