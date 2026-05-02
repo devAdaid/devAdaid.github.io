@@ -3,7 +3,6 @@
 **Genre:** Visual Novel, Romance, Mystery, Black Comedy
 **Development Period:** 2025.01.01 ~ 02.01
 **Role:** Solo Developer
-**Supported Languages:** Korean, English
 Welcome to the K-Afterlife!
 
 ---
