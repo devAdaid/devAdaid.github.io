@@ -7,8 +7,8 @@
     "description_en": "Mystery, Story",
     "description_ja": "推理, ストーリー",
     "tagline": "저승사자(使者)와 함께 사자(死者)들의 신원을 찾고, 그들의 한을 풀어주는 추리 게임",
-    "tagline_en": "A mystery game where you uncover the identities of the deceased and put their regrets to rest.",
-    "tagline_ja": "死神（使者）と共に死者たちの身元を明かし、彼らの恨みを解く推理ゲーム。",
+    "tagline_en": "A mystery game where you uncover the identities of the deceased and resolve their Han.",
+    "tagline_ja": "저승사자（冥府の使者）と共に死者たちの身元を明かし、彼らのハンを解く推理ゲーム。",
     "award": true,
     "languages": ["ko", "en", "ja"]
   },

@@ -6,7 +6,7 @@
 **Genre:** Mystery, Story
 **Development Period:** 2025.11.01 ~ 12.01
 **Role:** Direction, Planning, Scenario, Programming, Graphics
-A mystery game where you uncover the identities of the deceased alongside a Grim Reaper, and put their regrets to rest.
+A mystery game where you uncover the identities of the deceased alongside a Saja, and resolve their Han.
 
 ---
 
@@ -52,14 +52,14 @@ A fire consumed the building in the middle of the night, and ten souls were buri
 The culprit has already been arrested. The case is closed.
 ...But your work is just beginning.
 "Hmph, not bad for a newbie. ...What? You can't even do this? You little...!"
-Together with a prickly but slightly clumsy Grim Reaper partner, you must uncover the identities of the deceased and resolve their lingering regrets.
+Together with a prickly but slightly clumsy Saja partner, you must uncover the identities of the deceased and resolve their Han.
 Who were they? What is keeping them here?
 Inside a half-burned building, surrounded by charred belongings and faded memories, find the stories of those who were forgotten.
 
 Key features:
-1. A prickly yet endearing Grim Reaper partner
+1. A prickly yet endearing Saja partner
 2. A deduction mechanic requiring you to simultaneously match each soul's wave, name, and location
-3. Korean folklore elements such as the Grim Reaper (저승사자) and han (恨)
+3. Korean folklore elements such as the Saja (저승사자) and han (恨)
 4. A story that moves between laughter and heartfelt emotion
 5. A carefully crafted ending sequence
 (Please play to the end!)
