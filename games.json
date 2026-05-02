@@ -9,14 +9,6 @@
     "languages": ["ko", "en", "ja"]
   },
   {
-    "id": "TheSecretHero",
-    "title": "The Secret Hero",
-    "thumbnail": "games/TheSecretHero/thumb.png",
-    "description": "시뮬레이션, 스토리",
-    "tagline": "턴마다 선택을 통해 스탯을 올리며 게임오버를 피해야 하는 게임, 그리고...",
-    "languages": ["ko", "en"]
-  },
-  {
     "id": "RobotManager",
     "title": "로봇 관리자",
     "thumbnail": "games/RobotManager/thumb.png",
@@ -24,6 +16,14 @@
     "tagline": "로봇을 조종해 우주선의 비밀을 밝혀내는 비선형 추리 미스테리 퍼즐게임",
     "award": true,
     "languages": ["ko"]
+  },
+  {
+    "id": "TheSecretHero",
+    "title": "The Secret Hero",
+    "thumbnail": "games/TheSecretHero/thumb.png",
+    "description": "시뮬레이션, 스토리",
+    "tagline": "턴마다 선택을 통해 스탯을 올리며 게임오버를 피해야 하는 게임, 그리고...",
+    "languages": ["ko", "en"]
   },
   {
     "id": "BlackAfterlife",
