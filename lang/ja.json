@@ -1,0 +1,16 @@
+{
+  "share": "シェア",
+  "hero_name": "adaid",
+  "hero_tagline": "<b>「ゲーム」</b>を通じて印象的な体験を<b>「あなた」</b>に届けます。<br>作りたいゲームを作ります。",
+  "section_games": "Games",
+  "loading": "読み込み中...",
+  "no_games": "登録されたゲームはありません。",
+  "load_error": "games.json を読み込めませんでした。",
+  "footer": "© 2026 adaid Portfolio",
+  "back_home": "← 一覧に戻る",
+  "game_id_missing": "ゲームIDがありません。",
+  "game_not_found": "ファイルが見つかりません。",
+  "webgl_title": "WebGLゲーム起動",
+  "webgl_sub": "クリックするとロードが始まります",
+  "webgl_play": "プレイ"
+}

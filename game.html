@@ -6,14 +6,17 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>adaid</title>
-
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="brand">ADAID</a>
+  <div class="nav-right">
+    <div class="lang-switcher" id="lang-switcher"></div>
+  </div>
 </nav>
 
 <div class="wrap">
@@ -24,7 +27,7 @@
       <p class="status">불러오는 중...</p>
     </div>
 
-    <a href="index.html" class="back-home">
+    <a href="index.html" class="back-home" data-i18n="back_home">
       ← 목록으로 돌아가기
     </a>
 
@@ -33,105 +36,144 @@
 </div>
 
 <script>
-marked.setOptions({ breaks:true });
+marked.setOptions({ breaks: true });
 
-async function loadGame(){
+const SUPPORTED_LANGS = ['ko', 'en', 'ja'];
+const LANG_LABELS = { ko: '한', en: 'EN', ja: '日' };
+
+let currentLang = 'ko';
+let strings = {};
+
+function detectLang() {
+  const saved = localStorage.getItem('lang');
+  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+  const browser = navigator.language.slice(0, 2);
+  return SUPPORTED_LANGS.includes(browser) ? browser : 'ko';
+}
+
+async function changeLang(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  strings = await res.json();
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang;
+  renderLangSwitcher();
+  applyStrings();
 
   const params = new URLSearchParams(location.search);
-  const id = params.get('id');
+  await loadGame(params.get('id'));
+}
+
+function renderLangSwitcher() {
+  const switcher = document.getElementById('lang-switcher');
+  switcher.innerHTML = SUPPORTED_LANGS
+    .map(l => `<button class="lang-btn${l === currentLang ? ' active' : ''}" data-lang="${l}">${LANG_LABELS[l]}</button>`)
+    .join('');
+}
+
+function applyStrings() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (strings[key] !== undefined) el.innerHTML = strings[key];
+  });
+}
+
+async function loadGame(id) {
   const content = document.getElementById('content');
 
-  if(!id){
-    content.innerHTML = '<p class="status">게임 ID가 없습니다.</p>';
+  if (!id) {
+    content.innerHTML = `<p class="status">${strings.game_id_missing || 'No game ID.'}</p>`;
     return;
   }
 
-  try{
+  content.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
 
-    const res = await fetch(`games/${id}.md`);
-    if(!res.ok) throw new Error();
+  const paths = currentLang !== 'ko'
+    ? [`games/${id}.${currentLang}.md`, `games/${id}.md`]
+    : [`games/${id}.md`];
 
-    const text = await res.text();
-
-    /* 1차 markdown 렌더 */
-    content.innerHTML = marked.parse(text);
-
-    /* 제목 */
-    const h1 = content.querySelector('h1');
-    if(h1){
-      document.title = `${h1.textContent} — adaid`;
-    }
-
-    /* [play:주소] 자동 치환 */
-    replacePlayBlocks();
-
-  }catch(e){
-    content.innerHTML =
-      `<p class="status">games/${id}.md 파일을 찾을 수 없습니다.</p>`;
+  let text = null;
+  for (const path of paths) {
+    const res = await fetch(path);
+    if (res.ok) { text = await res.text(); break; }
   }
+
+  if (!text) {
+    content.innerHTML = `<p class="status">${strings.game_not_found || 'Not found.'}</p>`;
+    return;
+  }
+
+  content.innerHTML = marked.parse(text);
+
+  const h1 = content.querySelector('h1');
+  if (h1) document.title = `${h1.textContent} — adaid`;
+
+  replacePlayBlocks();
 }
 
-function replacePlayBlocks(){
-
+function replacePlayBlocks() {
   const walker = document.createTreeWalker(
     document.getElementById('content'),
     NodeFilter.SHOW_TEXT
   );
 
   const targets = [];
-
-  while(walker.nextNode()){
-    const node = walker.currentNode;
-
-    if(node.nodeValue.includes('[play:')){
-      targets.push(node);
+  while (walker.nextNode()) {
+    if (walker.currentNode.nodeValue.includes('[play:')) {
+      targets.push(walker.currentNode);
     }
   }
 
   targets.forEach(node => {
-
     const match = node.nodeValue.match(/\[play:(.*?)\]/);
-    if(!match) return;
-
-    const src = match[1].trim();
+    if (!match) return;
 
     const wrap = document.createElement('div');
     wrap.className = 'game-embed';
-    wrap.dataset.src = src;
-
+    wrap.dataset.src = match[1].trim();
     wrap.innerHTML = `
-    <div class="game-launch">
-    <div class="game-launch-icon">▶</div>
-    <div class="game-launch-title">WebGL 게임 실행</div>
-    <div class="game-launch-sub">클릭하면 로딩이 시작됩니다</div>
-    <button type="button">플레이하기</button>
-    </div>
+      <div class="game-launch">
+        <div class="game-launch-icon">▶</div>
+        <div class="game-launch-title">${strings.webgl_title || 'WebGL'}</div>
+        <div class="game-launch-sub">${strings.webgl_sub || ''}</div>
+        <button type="button">${strings.webgl_play || 'Play'}</button>
+      </div>
     `;
-
     node.parentNode.replaceChild(wrap, node);
   });
 }
 
 document.addEventListener('click', e => {
-
   const btn = e.target.closest('.game-launch button');
-  if(!btn) return;
-
+  if (!btn) return;
   const box = btn.closest('.game-embed');
-  if(!box) return;
-
-  const src = box.dataset.src;
-
-  box.innerHTML = `
-    <iframe
-      src="${src}"
-      loading="lazy"
-      allowfullscreen>
-    </iframe>
-  `;
+  if (!box) return;
+  box.innerHTML = `<iframe src="${box.dataset.src}" loading="lazy" allowfullscreen></iframe>`;
 });
 
-loadGame();
+async function init() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const lang = detectLang();
+
+  const res = await fetch(`lang/${lang}.json`);
+  strings = await res.json();
+
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang;
+
+  renderLangSwitcher();
+  applyStrings();
+  await loadGame(id);
+
+  document.getElementById('lang-switcher').addEventListener('click', e => {
+    const btn = e.target.closest('.lang-btn');
+    if (btn) changeLang(btn.dataset.lang);
+  });
+}
+
+init();
 </script>
 
 </body>

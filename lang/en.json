@@ -1,0 +1,16 @@
+{
+  "share": "Share",
+  "hero_name": "adaid",
+  "hero_tagline": "Delivering impressive experiences through <b>'games'</b>, for <b>'you'</b>.<br>I make the games I want to make.",
+  "section_games": "Games",
+  "loading": "Loading...",
+  "no_games": "No games registered yet.",
+  "load_error": "Failed to load games.json.",
+  "footer": "© 2026 adaid Portfolio",
+  "back_home": "← Back to List",
+  "game_id_missing": "No game ID provided.",
+  "game_not_found": "File not found.",
+  "webgl_title": "Launch WebGL Game",
+  "webgl_sub": "Click to start loading",
+  "webgl_play": "Play"
+}

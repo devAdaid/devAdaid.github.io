@@ -13,7 +13,14 @@
 
 <nav>
   <a href="index.html" class="brand">ADAID</a>
-  <button class="share-btn" onclick="openQR()">공유</button>
+  <div class="nav-right">
+    <button class="share-btn" data-i18n="share" onclick="openQR()">공유</button>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="ko">한</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ja">日</button>
+    </div>
+  </div>
 </nav>
 
 <div class="qr-overlay" id="qr-overlay" onclick="closeQR()">
@@ -32,9 +39,9 @@
        alt="프로필 사진"
        onerror="this.style.display='none'">
 
-  <h1>어데이드</h1>
+  <h1 data-i18n="hero_name">어데이드</h1>
 
-  <p class="tagline">
+  <p class="tagline" data-i18n="hero_tagline">
     <b>'게임'</b>을 통해 인상적인 경험을 <b>'당신'</b>에게.<br>
     만들고 싶은 게임을 만듭니다.
   </p>
@@ -67,37 +74,70 @@
 
 <section id="games">
 
-  <p class="section-title">Games</p>
+  <p class="section-title" data-i18n="section_games">Games</p>
 
   <div class="games-grid" id="games-grid">
-    <p class="status">불러오는 중...</p>
+    <p class="status" data-i18n="loading">불러오는 중...</p>
   </div>
 
 </section>
 
-<p class="footer">© 2026 adaid Portfolio</p>
+<p class="footer" data-i18n="footer">© 2026 adaid Portfolio</p>
 
 </main>
 
 <script>
-async function loadGames(){
+const SUPPORTED_LANGS = ['ko', 'en', 'ja'];
+const LANG_FLAGS = { ko:'kr', en:'us', ja:'jp', zh:'cn', fr:'fr', de:'de', es:'es' };
 
+let currentLang = 'ko';
+let strings = {};
+
+function detectLang() {
+  const saved = localStorage.getItem('lang');
+  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+  const browser = navigator.language.slice(0, 2);
+  return SUPPORTED_LANGS.includes(browser) ? browser : 'ko';
+}
+
+async function changeLang(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  strings = await res.json();
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang;
+  applyStrings();
+  loadGames();
+}
+
+function applyStrings() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (strings[key] !== undefined) el.innerHTML = strings[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+  });
+}
+
+function loc(game, field) {
+  return game[`${field}_${currentLang}`] || game[field] || '';
+}
+
+async function loadGames() {
   const grid = document.getElementById('games-grid');
+  grid.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
 
-  try{
-
+  try {
     const res = await fetch('games.json');
-    if(!res.ok) throw new Error();
+    if (!res.ok) throw new Error();
 
     const games = await res.json();
 
-    if(!games.length){
-      grid.innerHTML =
-        '<p class="status">아직 등록된 게임이 없습니다.</p>';
+    if (!games.length) {
+      grid.innerHTML = `<p class="status">${strings.no_games || ''}</p>`;
       return;
     }
-
-    const LANG_FLAGS = { ko:'kr', en:'us', ja:'jp', zh:'cn', fr:'fr', de:'de', es:'es' };
 
     grid.innerHTML = games.map(g => `
       <a class="game-card"
@@ -107,23 +147,23 @@ async function loadGames(){
           ${g.thumbnail
             ? `<img class="card-thumb"
                    src="${g.thumbnail}"
-                   alt="${g.title}"
+                   alt="${loc(g, 'title')}"
                    loading="lazy">`
             : `<div class="card-thumb-placeholder">No Image</div>`
           }
-          ${g.award ? `<img class="card-award" src="icons/award.svg" alt="수상">` : ''}
+          ${g.award ? `<img class="card-award" src="icons/award.svg" alt="award">` : ''}
         </div>
 
         <div class="card-body">
-          <p class="card-title">${g.title}</p>
+          <p class="card-title">${loc(g, 'title')}</p>
 
-          ${g.description
-            ? `<div class="card-tags">${g.description.split(',').map(t => `<span class="card-tag">${t.trim()}</span>`).join('')}</div>`
+          ${loc(g, 'description')
+            ? `<div class="card-tags">${loc(g, 'description').split(',').map(t => `<span class="card-tag">${t.trim()}</span>`).join('')}</div>`
             : ''
           }
 
-          ${g.tagline
-            ? `<p class="card-tagline">${g.tagline}</p>`
+          ${loc(g, 'tagline')
+            ? `<p class="card-tagline">${loc(g, 'tagline')}</p>`
             : ''
           }
 
@@ -136,21 +176,21 @@ async function loadGames(){
       </a>
     `).join('');
 
-    const cards = document.querySelectorAll('.game-card');
-
-    cards.forEach((card, i) => {
+    document.querySelectorAll('.game-card').forEach((card, i) => {
       card.style.animationDelay = `${i * 0.08}s`;
       card.classList.add('show');
     });
 
-  }catch(e){
-
-    grid.innerHTML =
-      '<p class="status">games.json을 불러올 수 없습니다.</p>';
+  } catch(e) {
+    grid.innerHTML = `<p class="status">${strings.load_error || 'Error'}</p>`;
   }
 }
 
-loadGames();
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => changeLang(btn.dataset.lang));
+});
+
+changeLang(detectLang());
 
 function openQR(){
   document.getElementById('qr-overlay').classList.add('active');
