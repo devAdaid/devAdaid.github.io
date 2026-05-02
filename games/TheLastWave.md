@@ -80,7 +80,7 @@
 
 ## 크레딧
 
-* adaid: 디렉팅, 기획, 시나리오, 프로그래밍, 그래픽
+* 어데이드: 디렉팅, 기획, 시나리오, 프로그래밍, 그래픽
 * gasbank: 프로그래밍
 * 전체 크레딧: https://adaid.notion.site/The-Last-Wave-Full-Credit-2bb84d0908ea802b85ffc5627c622c0e
 
