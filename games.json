@@ -24,6 +24,18 @@
     "description": "스토리, 로맨스"
   },
   {
+    "id": "Chocolate2048",
+    "title": "초콜릿 2048",
+    "thumbnail": "games/Chocolate2048/thumb.png",
+    "description": "캐주얼"
+  },
+  {
+    "id": "July21st",
+    "title": "7월 21일",
+    "thumbnail": "games/July21st/thumb.png",
+    "description": "스토리"
+  },
+  {
     "id": "HealingGacha",
     "title": "힐링 가챠",
     "thumbnail": "games/HealingGacha/thumb.png",
