@@ -7,6 +7,8 @@
   "no_games": "登録されたゲームはありません。",
   "load_error": "games.json を読み込めませんでした。",
   "footer": "© 2026 adaid Portfolio",
+  "social_postype": "Postype",
+  "social_gameping": "GamePing",
   "back_home": "← 一覧に戻る",
   "game_id_missing": "ゲームIDがありません。",
   "game_not_found": "ファイルが見つかりません。",

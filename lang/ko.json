@@ -7,6 +7,8 @@
   "no_games": "아직 등록된 게임이 없습니다.",
   "load_error": "games.json을 불러올 수 없습니다.",
   "footer": "© 2026 adaid Portfolio",
+  "social_postype": "포스타입",
+  "social_gameping": "게임핑",
   "back_home": "← 목록으로 돌아가기",
   "game_id_missing": "게임 ID가 없습니다.",
   "game_not_found": "파일을 찾을 수 없습니다.",

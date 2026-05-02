@@ -7,6 +7,8 @@
   "no_games": "No games registered yet.",
   "load_error": "Failed to load games.json.",
   "footer": "© 2026 adaid Portfolio",
+  "social_postype": "Postype",
+  "social_gameping": "GamePing",
   "back_home": "← Back to List",
   "game_id_missing": "No game ID provided.",
   "game_not_found": "File not found.",
