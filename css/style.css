@@ -246,6 +246,17 @@ nav{
   line-height:1.65;
 }
 
+.card-langs{
+  margin-top:8px;
+  display:flex;
+  gap:4px;
+}
+.card-langs .fi{
+  width:20px;
+  height:15px;
+  border-radius:2px;
+}
+
 .status{
   color:var(--muted);
   padding:20px;

@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>adaid</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 </head>
 <body>
 
@@ -91,6 +92,8 @@ async function loadGames(){
       return;
     }
 
+    const LANG_FLAGS = { ko:'kr', en:'us', ja:'jp', zh:'cn', fr:'fr', de:'de', es:'es' };
+
     grid.innerHTML = games.map(g => `
       <a class="game-card"
          href="game.html?id=${encodeURIComponent(g.id)}">
@@ -108,6 +111,11 @@ async function loadGames(){
 
           ${g.description
             ? `<p class="card-desc">${g.description}</p>`
+            : ''
+          }
+
+          ${g.languages && g.languages.length
+            ? `<p class="card-langs">${g.languages.map(l => `<span class="fi fi-${LANG_FLAGS[l] ?? l}" title="${l}"></span>`).join('')}</p>`
             : ''
           }
         </div>

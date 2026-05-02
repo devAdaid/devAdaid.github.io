@@ -3,48 +3,56 @@
     "id": "TheLastWave",
     "title": "The Last Wave",
     "thumbnail": "games/TheLastWave/thumb.png",
-    "description": "추리, 스토리"
+    "description": "추리, 스토리",
+    "languages": ["ko", "en", "ja"]
   },
   {
     "id": "TheSecretHero",
     "title": "The Secret Hero",
     "thumbnail": "games/TheSecretHero/thumb.png",
-    "description": "시뮬레이션, 스토리"
+    "description": "시뮬레이션, 스토리",
+    "languages": ["ko", "en"]
   },
   {
     "id": "RobotManager",
     "title": "로봇 관리자",
     "thumbnail": "games/RobotManager/thumb.png",
-    "description": "추리, 스토리, 어드벤처"
+    "description": "추리, 스토리, 어드벤처",
+    "languages": ["ko"]
   },
   {
     "id": "BlackAfterlife",
     "title": "저승도 블랙기업이라고?! Demo",
     "thumbnail": "games/BlackAfterlife/thumb.png",
-    "description": "스토리, 로맨스"
+    "description": "스토리, 로맨스",
+    "languages": ["ko", "en"]
   },
   {
     "id": "Chocolate2048",
     "title": "초콜릿 2048",
     "thumbnail": "games/Chocolate2048/thumb.png",
-    "description": "캐주얼"
+    "description": "캐주얼",
+    "languages": ["ko", "en", "ja"]
   },
   {
     "id": "July21st",
     "title": "7월 21일",
     "thumbnail": "games/July21st/thumb.png",
-    "description": "스토리"
+    "description": "스토리",
+    "languages": ["ko", "en"]
   },
   {
     "id": "HealingGacha",
     "title": "힐링 가챠",
     "thumbnail": "games/HealingGacha/thumb.png",
-    "description": "가챠, 캐주얼"
+    "description": "가챠, 캐주얼",
+    "languages": ["ko"]
   },
   {
     "id": "HugMe",
     "title": "안아줘요 (팬 게임)",
     "thumbnail": "games/HugMe/thumb.png",
-    "description": "캐주얼"
+    "description": "캐주얼",
+    "languages": ["ko"]
   }
 ]
