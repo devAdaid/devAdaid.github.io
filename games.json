@@ -5,6 +5,7 @@
     "thumbnail": "games/TheLastWave/thumb.png",
     "description": "추리, 스토리",
     "tagline": "저승사자(使者)와 함께 사자(死者)들의 신원을 찾고, 그들의 한을 풀어주는 추리 게임.",
+    "award": true,
     "languages": ["ko", "en", "ja"]
   },
   {
@@ -21,6 +22,7 @@
     "thumbnail": "games/RobotManager/thumb.png",
     "description": "추리, 스토리, 어드벤처",
     "tagline": "로봇을 조종해 우주선의 비밀을 밝혀내는 비선형 추리 미스테리 퍼즐게임",
+    "award": true,
     "languages": ["ko"]
   },
   {

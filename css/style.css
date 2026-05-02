@@ -219,6 +219,19 @@ nav{
   transform:translateY(-5px);
 }
 
+.card-thumb-wrap{
+  position:relative;
+}
+
+.card-award{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:32px;
+  height:32px;
+  filter:drop-shadow(0 1px 4px rgba(0,0,0,0.7));
+}
+
 .card-thumb,
 .card-thumb-placeholder{
   width:100%;

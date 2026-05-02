@@ -98,13 +98,16 @@ async function loadGames(){
       <a class="game-card"
          href="game.html?id=${encodeURIComponent(g.id)}">
 
-        ${g.thumbnail
-          ? `<img class="card-thumb"
-                 src="${g.thumbnail}"
-                 alt="${g.title}"
-                 loading="lazy">`
-          : `<div class="card-thumb-placeholder">No Image</div>`
-        }
+        <div class="card-thumb-wrap">
+          ${g.thumbnail
+            ? `<img class="card-thumb"
+                   src="${g.thumbnail}"
+                   alt="${g.title}"
+                   loading="lazy">`
+            : `<div class="card-thumb-placeholder">No Image</div>`
+          }
+          ${g.award ? `<img class="card-award" src="icons/award.svg" alt="수상">` : ''}
+        </div>
 
         <div class="card-body">
           <p class="card-title">${g.title}</p>
