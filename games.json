@@ -28,6 +28,21 @@
     "languages": ["ko"]
   },
   {
+    "id": "BurgerAdventure",
+    "title": "작은 버거의 모험",
+    "title_en": "The Adventure of the Little Burger",
+    "title_ja": "小さなバーガーの冒険",
+    "thumbnail": "games/BurgerAdventure/thumb.png",
+    "description": "퍼즐, 플랫포머, 메트로배니아, 어드벤처",
+    "description_en": "Puzzle, Platformer, Metroidvania, Adventure",
+    "description_ja": "パズル, プラットフォーマー, メトロイドヴァニア, アドベンチャー",
+    "tagline": "완전한 버거가 되기 위해 떠나는 모험",
+    "tagline_en": "An adventure to become a complete burger.",
+    "tagline_ja": "完全なバーガーになるために旅立つ冒険。",
+    "award": false,
+    "languages": []
+  },
+  {
     "id": "TheSecretHero",
     "title": "The Secret Hero",
     "thumbnail": "games/TheSecretHero/thumb.png",
@@ -107,6 +122,6 @@
     "tagline": "아티스트 '부드라미'님의 날다람쥐 캐릭터를 안아줄 수 있는 2차 창작 팬 게임",
     "tagline_en": "A fan game where you can hug artist budorami's flying squirrel character.",
     "tagline_ja": "アーティスト「ブドラミ」さんのモモンガキャラクターを抱っこできる二次創作ファンゲーム。",
-    "languages": ["ko"]
+    "languages": []
   }
 ]
