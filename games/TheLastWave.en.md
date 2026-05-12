@@ -77,6 +77,10 @@ Inspired by *Return of the Obra Dinn*, this game was developed over three weeks 
 The jam's theme was "WAVES."
 If you enjoyed this game, please give *Return of the Obra Dinn* a try!
 
++) It placed 10th overall and was featured on the GitHub homepage!
+Link: https://github.blog/open-source/gaming/light-waves-rising-tides-and-drifting-ships-game-off-2025-winners/
+![GitHub](../games/TheLastWave/github.png)
+
 ## Credits
 
 * adaid: Direction, Planning, Scenario, Programming, Graphics

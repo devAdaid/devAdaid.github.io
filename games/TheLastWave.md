@@ -78,6 +78,10 @@
 게임잼 주제는 "WAVES"였습니다.
 재미있게 즐겨주셨다면, 부디 "오브라 딘 호의 귀환"도 꼭 즐겨보세요!
 
++) Overall 부문 10위를 달성하여, GitHub 홈페이지에도 소개되었습니다!
+링크: https://github.blog/open-source/gaming/light-waves-rising-tides-and-drifting-ships-game-off-2025-winners/
+![깃허브](../games/TheLastWave/github.png)
+
 ## 크레딧
 
 * 어데이드: 디렉팅, 기획, 시나리오, 프로그래밍, 그래픽

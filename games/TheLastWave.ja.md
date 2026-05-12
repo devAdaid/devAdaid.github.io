@@ -77,6 +77,10 @@
 ゲームジャムのテーマは「WAVES」でした。
 楽しんでいただけたなら、ぜひ「Return of the Obra Dinn」もプレイしてみてください！
 
++) Overall部門で10位を達成し、GitHubホームページでも紹介されました！
+リンク: https://github.blog/open-source/gaming/light-waves-rising-tides-and-drifting-ships-game-off-2025-winners/
+![GitHub](../games/TheLastWave/github.png)
+
 ## クレジット
 
 * adaid: ディレクション、企画、シナリオ、プログラミング、グラフィック
