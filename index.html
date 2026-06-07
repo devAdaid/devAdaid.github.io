@@ -99,6 +99,11 @@
 <script>
 const SUPPORTED_LANGS = ['ko', 'en', 'ja'];
 const LANG_FLAGS = { ko:'kr', en:'us', ja:'jp', zh:'cn', fr:'fr', de:'de', es:'es' };
+const ENGINE_LABELS = {
+  unity: 'Unity',
+  rpgmakermz: 'RPG Maker MZ',
+  renpy: 'Ren\'Py'
+};
 
 let currentLang = 'ko';
 let strings = {};
@@ -162,6 +167,7 @@ async function loadGames() {
             : `<div class="card-thumb-placeholder">No Image</div>`
           }
           ${g.award ? `<img class="card-award" src="icons/award.svg" alt="award">` : ''}
+          ${g.engine ? `<img class="card-engine" src="icons/${g.engine}.png" alt="${ENGINE_LABELS[g.engine] || g.engine}" title="${ENGINE_LABELS[g.engine] || g.engine}" loading="lazy">` : ''}
         </div>
 
         <div class="card-body">

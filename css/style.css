@@ -269,6 +269,21 @@ nav{
   filter:drop-shadow(0 1px 4px rgba(0,0,0,0.7));
 }
 
+.card-engine{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  width:36px;
+  height:36px;
+  object-fit:contain;
+  filter:
+    drop-shadow(1px 0 0 rgba(255,255,255,.9))
+    drop-shadow(-1px 0 0 rgba(255,255,255,.9))
+    drop-shadow(0 1px 0 rgba(255,255,255,.9))
+    drop-shadow(0 -1px 0 rgba(255,255,255,.9))
+    drop-shadow(0 3px 8px rgba(0,0,0,.55));
+}
+
 .card-thumb,
 .card-thumb-placeholder{
   width:100%;
