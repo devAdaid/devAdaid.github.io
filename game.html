@@ -15,9 +15,17 @@
 <nav>
   <a href="index.html" class="brand">ADAID</a>
   <div class="nav-right">
+    <button class="share-btn" id="game-share-btn" data-i18n="share" onclick="openQR()" style="display:none;">공유</button>
     <div class="lang-switcher" id="lang-switcher"></div>
   </div>
 </nav>
+
+<div class="qr-overlay" id="qr-overlay" onclick="closeQR()">
+  <div class="qr-modal" onclick="event.stopPropagation()">
+    <button class="qr-close" onclick="closeQR()">✕</button>
+    <img id="qr-image" src="" alt="QR 코드">
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -43,6 +51,8 @@ const LANG_LABELS = { ko: '한', en: 'EN', ja: '日' };
 
 let currentLang = 'ko';
 let strings = {};
+let games = null;
+let currentGame = null;
 
 function detectLang() {
   const saved = localStorage.getItem('lang');
@@ -78,13 +88,41 @@ function applyStrings() {
   });
 }
 
+async function loadGameMeta(id) {
+  try {
+    if (!games) {
+      const res = await fetch('games.json');
+      if (!res.ok) throw new Error();
+      games = await res.json();
+    }
+    return games.find(game => game.id === id) || null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function gameTitle(game) {
+  return game?.[`title_${currentLang}`] || game?.title || 'Game';
+}
+
+function updateShareButton() {
+  const btn = document.getElementById('game-share-btn');
+  if (!btn) return;
+  btn.style.display = currentGame?.qr ? '' : 'none';
+}
+
 async function loadGame(id) {
   const content = document.getElementById('content');
 
   if (!id) {
+    currentGame = null;
+    updateShareButton();
     content.innerHTML = `<p class="status">${strings.game_id_missing || 'No game ID.'}</p>`;
     return;
   }
+
+  currentGame = await loadGameMeta(id);
+  updateShareButton();
 
   content.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
 
@@ -151,6 +189,18 @@ document.addEventListener('click', e => {
   box.innerHTML = `<iframe src="${box.dataset.src}" loading="lazy" allowfullscreen></iframe>`;
 });
 
+function openQR(){
+  if (!currentGame?.qr) return;
+  const img = document.getElementById('qr-image');
+  img.src = currentGame.qr;
+  img.alt = `${gameTitle(currentGame)} QR`;
+  document.getElementById('qr-overlay').classList.add('active');
+}
+
+function closeQR(){
+  document.getElementById('qr-overlay').classList.remove('active');
+}
+
 async function init() {
   const params = new URLSearchParams(location.search);
   const id = params.get('id');
@@ -174,6 +224,7 @@ async function init() {
 }
 
 init();
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeQR(); });
 </script>
 
 </body>
