@@ -6,7 +6,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>adaid</title>
-<link rel="stylesheet" href="css/style.css">
+<script>
+document.write(`<link rel="stylesheet" href="css/style.css?v=${Date.now()}">`);
+</script>
+<noscript><link rel="stylesheet" href="css/style.css"></noscript>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -48,11 +51,28 @@ marked.setOptions({ breaks: true });
 
 const SUPPORTED_LANGS = ['ko', 'en', 'ja'];
 const LANG_LABELS = { ko: '한', en: 'EN', ja: '日' };
+const CACHE_BUST = Date.now();
 
 let currentLang = 'ko';
 let strings = {};
 let games = null;
 let currentGame = null;
+
+function freshUrl(path) {
+  return `${path}${path.includes('?') ? '&' : '?'}v=${CACHE_BUST}`;
+}
+
+function fetchFresh(path) {
+  return fetch(freshUrl(path), { cache: 'no-store' });
+}
+
+function bustImagesIn(root) {
+  root.querySelectorAll('img[src]').forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src || src.includes('?v=') || src.startsWith('http') || src.startsWith('data:')) return;
+    img.src = freshUrl(src);
+  });
+}
 
 function detectLang() {
   const saved = localStorage.getItem('lang');
@@ -62,7 +82,7 @@ function detectLang() {
 }
 
 async function changeLang(lang) {
-  const res = await fetch(`lang/${lang}.json`);
+  const res = await fetchFresh(`lang/${lang}.json`);
   strings = await res.json();
   currentLang = lang;
   localStorage.setItem('lang', lang);
@@ -91,7 +111,7 @@ function applyStrings() {
 async function loadGameMeta(id) {
   try {
     if (!games) {
-      const res = await fetch('games.json');
+      const res = await fetchFresh('games.json');
       if (!res.ok) throw new Error();
       games = await res.json();
     }
@@ -132,7 +152,7 @@ async function loadGame(id) {
 
   let text = null;
   for (const path of paths) {
-    const res = await fetch(path);
+    const res = await fetchFresh(path);
     if (res.ok) { text = await res.text(); break; }
   }
 
@@ -142,6 +162,7 @@ async function loadGame(id) {
   }
 
   content.innerHTML = marked.parse(text);
+  bustImagesIn(content);
 
   const h1 = content.querySelector('h1');
   if (h1) document.title = `${h1.textContent} — adaid`;
@@ -192,7 +213,7 @@ document.addEventListener('click', e => {
 function openQR(){
   if (!currentGame?.qr) return;
   const img = document.getElementById('qr-image');
-  img.src = currentGame.qr;
+  img.src = freshUrl(currentGame.qr);
   img.alt = `${gameTitle(currentGame)} QR`;
   document.getElementById('qr-overlay').classList.add('active');
 }
@@ -206,7 +227,7 @@ async function init() {
   const id = params.get('id');
   const lang = detectLang();
 
-  const res = await fetch(`lang/${lang}.json`);
+  const res = await fetchFresh(`lang/${lang}.json`);
   strings = await res.json();
 
   currentLang = lang;

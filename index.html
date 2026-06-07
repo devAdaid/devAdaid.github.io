@@ -6,7 +6,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>adaid</title>
-<link rel="stylesheet" href="css/style.css">
+<script>
+document.write(`<link rel="stylesheet" href="css/style.css?v=${Date.now()}">`);
+</script>
+<noscript><link rel="stylesheet" href="css/style.css"></noscript>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
 </head>
 <body>
@@ -104,9 +107,26 @@ const ENGINE_LABELS = {
   rpgmakermz: 'RPG Maker MZ',
   renpy: 'Ren\'Py'
 };
+const CACHE_BUST = Date.now();
 
 let currentLang = 'ko';
 let strings = {};
+
+function freshUrl(path) {
+  return `${path}${path.includes('?') ? '&' : '?'}v=${CACHE_BUST}`;
+}
+
+function fetchFresh(path) {
+  return fetch(freshUrl(path), { cache: 'no-store' });
+}
+
+function bustStaticImages() {
+  document.querySelectorAll('img[src]').forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src || src.includes('?v=') || src.startsWith('http') || src.startsWith('data:')) return;
+    img.src = freshUrl(src);
+  });
+}
 
 function detectLang() {
   const saved = localStorage.getItem('lang');
@@ -116,7 +136,7 @@ function detectLang() {
 }
 
 async function changeLang(lang) {
-  const res = await fetch(`lang/${lang}.json`);
+  const res = await fetchFresh(`lang/${lang}.json`);
   strings = await res.json();
   currentLang = lang;
   localStorage.setItem('lang', lang);
@@ -144,7 +164,7 @@ async function loadGames() {
   grid.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
 
   try {
-    const res = await fetch('games.json');
+    const res = await fetchFresh('games.json');
     if (!res.ok) throw new Error();
 
     const games = await res.json();
@@ -161,13 +181,13 @@ async function loadGames() {
         <div class="card-thumb-wrap">
           ${g.thumbnail
             ? `<img class="card-thumb"
-                   src="${g.thumbnail}"
+                   src="${freshUrl(g.thumbnail)}"
                    alt="${loc(g, 'title')}"
                    loading="lazy">`
             : `<div class="card-thumb-placeholder">No Image</div>`
           }
-          ${g.award ? `<img class="card-award" src="icons/award.svg" alt="award">` : ''}
-          ${g.engine ? `<img class="card-engine" src="icons/${g.engine}.png" alt="${ENGINE_LABELS[g.engine] || g.engine}" title="${ENGINE_LABELS[g.engine] || g.engine}" loading="lazy">` : ''}
+          ${g.award ? `<img class="card-award" src="${freshUrl('icons/award.svg')}" alt="award">` : ''}
+          ${g.engine ? `<img class="card-engine" src="${freshUrl(`icons/${g.engine}.png`)}" alt="${ENGINE_LABELS[g.engine] || g.engine}" title="${ENGINE_LABELS[g.engine] || g.engine}" loading="lazy">` : ''}
         </div>
 
         <div class="card-body">
@@ -206,6 +226,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => changeLang(btn.dataset.lang));
 });
 
+bustStaticImages();
 changeLang(detectLang());
 
 function openQR(){
