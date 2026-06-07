@@ -28,7 +28,7 @@ A mystery game where you uncover the identities of the deceased alongside a Saja
      ">
      ⬇ Download or Play on itch.io
   </a>
-  <a href="https://adaid.itch.io/the-last-wave"
+  <a href="https://www.game-ping.kr/games/the-last-wave"
      style="
       display:inline-block;
       padding:14px 24px;

@@ -29,7 +29,7 @@
      ">
      ⬇ itch.io에서 다운로드 또는 웹 플레이
   </a>
-  <a href="https://adaid.itch.io/the-last-wave"
+  <a href="https://www.game-ping.kr/games/the-last-wave"
      style="
       display:inline-block;
       padding:14px 24px;
