@@ -12,6 +12,7 @@
     "tagline_en": "A mystery game where you uncover the identities of the deceased and resolve their Han.",
     "tagline_ja": "저승사자（冥府の使者）と共に死者たちの身元を明かし、彼らのハンを解く推理ゲーム。",
     "award": true,
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": ["ko", "en", "ja"]
   },
   {
@@ -29,6 +30,7 @@
     "tagline_en": "A nonlinear mystery puzzle game where you control robots to uncover the secrets of a spaceship.",
     "tagline_ja": "ロボットを操作して宇宙船の秘密を解明する、非線形推理ミステリーパズルゲーム。",
     "award": true,
+    "platforms": ["computer_web", "windows"],
     "languages": ["ko"]
   },
   {
@@ -46,6 +48,7 @@
     "tagline_en": "An RPG Maker game that unfolds as you move between different RPG Maker games. Humor, heart, and horror.",
     "tagline_ja": "さまざまなツクールゲームを行き来しながら進めるツクールゲーム。ユーモア、感動、そしてホラー。",
     "award": false,
+    "platforms": ["computer_web", "windows"],
     "languages": ["ko"]
   },
   {
@@ -63,6 +66,7 @@
     "tagline_en": "An adventure to become a complete burger.",
     "tagline_ja": "完全なバーガーになるために旅立つ冒険。",
     "award": false,
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": []
   },
   {
@@ -76,6 +80,7 @@
     "tagline": "턴마다 선택을 통해 스탯을 올리며 게임오버를 피해야 하는 게임, 그리고...",
     "tagline_en": "A game where you raise your stats through choices each turn to avoid a game over, and...",
     "tagline_ja": "ターンごとの選択でステータスを上げ、ゲームオーバーを避けるゲーム、そして…",
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": ["ko", "en"]
   },
   {
@@ -91,6 +96,7 @@
     "tagline": "K-저승에 어서오세요!",
     "tagline_en": "Welcome to the K-Afterlife!",
     "tagline_ja": "K-あの世へようこそ！",
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": ["ko", "en"]
   },
   {
@@ -106,6 +112,7 @@
     "tagline": "자유로운 캐릭터 꾸미기가 가능한 2048 게임",
     "tagline_en": "A 2048 game where you can freely customize your characters.",
     "tagline_ja": "キャラクターを自由にカスタマイズできる2048ゲーム。",
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": ["ko", "en", "ja"]
   },
   {
@@ -121,6 +128,7 @@
     "tagline": "텍스트 1000자 미만의 비주얼 노벨",
     "tagline_en": "A visual novel with fewer than 1,000 characters of text.",
     "tagline_ja": "テキスト1000文字未満のビジュアルノベル。",
+    "platforms": ["computer_web", "mobile_web", "windows"],
     "languages": ["ko", "en"]
   },
   {
@@ -136,6 +144,7 @@
     "tagline": "가챠를 통해 돈을 모으고 가챠를 반복할 수 있는 캐주얼 시뮬레이션 게임",
     "tagline_en": "A casual simulation game where you earn money through gacha and keep on spinning.",
     "tagline_ja": "ガチャでお金を稼ぎ、また回し続けるカジュアルシミュレーションゲーム。",
+    "platforms": ["computer_web", "mobile_web"],
     "languages": ["ko"]
   },
   {
@@ -151,6 +160,7 @@
     "tagline": "아티스트 '부드라미'님의 날다람쥐 캐릭터를 안아줄 수 있는 2차 창작 팬 게임",
     "tagline_en": "A fan game where you can hug artist budorami's flying squirrel character.",
     "tagline_ja": "アーティスト「ブドラミ」さんのモモンガキャラクターを抱っこできる二次創作ファンゲーム。",
+    "platforms": ["computer_web", "mobile_web"],
     "languages": []
   }
 ]

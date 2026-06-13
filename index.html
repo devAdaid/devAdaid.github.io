@@ -107,6 +107,20 @@ const ENGINE_LABELS = {
   rpgmakermz: 'RPG Maker MZ',
   renpy: 'Ren\'Py'
 };
+const PLATFORM_META = {
+  computer_web: {
+    icon: 'icons/computer_web.png',
+    label: { ko: 'PC 웹', en: 'PC Web', ja: 'PCブラウザ' }
+  },
+  mobile_web: {
+    icon: 'icons/mobile_web.png',
+    label: { ko: '모바일 웹', en: 'Mobile Web', ja: 'モバイルブラウザ' }
+  },
+  windows: {
+    icon: 'icons/windows.png',
+    label: { ko: 'Windows', en: 'Windows', ja: 'Windows' }
+  }
+};
 const CACHE_BUST = Date.now();
 
 let currentLang = 'ko';
@@ -159,6 +173,10 @@ function loc(game, field) {
   return game[`${field}_${currentLang}`] || game[field] || '';
 }
 
+function platformLabel(platform) {
+  return PLATFORM_META[platform]?.label?.[currentLang] || PLATFORM_META[platform]?.label?.en || platform;
+}
+
 async function loadGames() {
   const grid = document.getElementById('games-grid');
   grid.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
@@ -203,8 +221,24 @@ async function loadGames() {
             : ''
           }
 
-          ${g.languages && g.languages.length
-            ? `<p class="card-langs">${g.languages.map(l => `<span class="fi fi-${LANG_FLAGS[l] ?? l}" title="${l}"></span>`).join('')}</p>`
+          ${g.platforms?.length || g.languages?.length
+            ? `<div class="card-meta">
+                ${g.platforms?.length
+                  ? `<div class="card-platforms">
+                      ${g.platforms.map(p => PLATFORM_META[p]
+                        ? `<span class="card-platform" title="${platformLabel(p)}" aria-label="${platformLabel(p)}">
+                            <img src="${freshUrl(PLATFORM_META[p].icon)}" alt="" loading="lazy">
+                          </span>`
+                        : ''
+                      ).join('')}
+                    </div>`
+                  : '<span></span>'
+                }
+                ${g.languages?.length
+                  ? `<p class="card-langs">${g.languages.map(l => `<span class="fi fi-${LANG_FLAGS[l] ?? l}" title="${l}"></span>`).join('')}</p>`
+                  : ''
+                }
+              </div>`
             : ''
           }
         </div>
