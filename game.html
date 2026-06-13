@@ -51,6 +51,41 @@ marked.setOptions({ breaks: true });
 
 const SUPPORTED_LANGS = ['ko', 'en', 'ja'];
 const LANG_LABELS = { ko: '한', en: 'EN', ja: '日' };
+const PLATFORM_META = {
+  computer_web: {
+    icon: 'icons/computer_web.png',
+    label: { ko: '웹 PC', en: 'Web PC', ja: 'PC Web' }
+  },
+  mobile_web: {
+    icon: 'icons/mobile_web.png',
+    label: { ko: '웹 모바일', en: 'Web Mobile', ja: 'モバイルWeb' }
+  },
+  windows: {
+    icon: 'icons/windows.png',
+    label: { ko: '윈도우', en: 'Windows', ja: 'Windows' }
+  }
+};
+const PLAY_HEADING_LABELS = { ko: '플레이', en: 'Play', ja: 'プレイ' };
+const PLAY_SECTION_TITLES = new Set([
+  '다운로드 및 플레이',
+  '플레이',
+  'download & play',
+  'play',
+  'ダウンロード・プレイ',
+  'プレイ'
+]);
+const STORE_META = [
+  {
+    match: 'itch.io',
+    icon: 'icons/itchio.svg',
+    label: { ko: 'itch.io', en: 'itch.io', ja: 'itch.io' }
+  },
+  {
+    match: 'game-ping.kr',
+    icon: 'icons/gameping.png',
+    label: { ko: '게임핑', en: 'GamePing', ja: 'GamePing' }
+  }
+];
 const CACHE_BUST = Date.now();
 
 let currentLang = 'ko';
@@ -125,6 +160,77 @@ function gameTitle(game) {
   return game?.[`title_${currentLang}`] || game?.title || 'Game';
 }
 
+function platformLabel(platform) {
+  return PLATFORM_META[platform]?.label?.[currentLang] || PLATFORM_META[platform]?.label?.en || platform;
+}
+
+function playHeadingLabel() {
+  return PLAY_HEADING_LABELS[currentLang] || PLAY_HEADING_LABELS.en;
+}
+
+function storeLabel(store) {
+  return store.label?.[currentLang] || store.label?.en || store.match;
+}
+
+function findPlaySectionHeading() {
+  const content = document.getElementById('content');
+  return [...content.querySelectorAll('h2')].find(h2 =>
+    PLAY_SECTION_TITLES.has(h2.textContent.trim().toLowerCase()) ||
+    PLAY_SECTION_TITLES.has(h2.textContent.trim())
+  );
+}
+
+function playSectionElements(heading) {
+  const elements = [];
+  let node = heading?.nextElementSibling || null;
+  while (node && node.tagName !== 'H2') {
+    elements.push(node);
+    node = node.nextElementSibling;
+  }
+  return elements;
+}
+
+function normalizePlaySection() {
+  const heading = findPlaySectionHeading();
+  if (!heading) return;
+  heading.textContent = playHeadingLabel();
+
+  playSectionElements(heading).forEach(sectionElement => {
+    sectionElement.querySelectorAll('a[href]').forEach(link => {
+      const store = STORE_META.find(meta => link.href.includes(meta.match));
+      if (!store) return;
+      const label = storeLabel(store);
+      link.classList.add('game-store-link');
+      link.setAttribute('aria-label', label);
+      link.innerHTML = `
+        <img class="game-store-icon" src="${freshUrl(store.icon)}" alt="" loading="lazy">
+        <span>${label}</span>
+      `;
+    });
+  });
+}
+
+function insertPlaySectionPlatforms() {
+  if (!currentGame?.platforms?.length) return;
+
+  const heading = findPlaySectionHeading();
+  if (!heading) return;
+
+  const platforms = currentGame.platforms.filter(platform => PLATFORM_META[platform]);
+  if (!platforms.length) return;
+
+  const labels = document.createElement('div');
+  labels.className = 'game-platform-labels';
+  labels.innerHTML = platforms.map(platform => `
+    <span class="game-platform-label" title="${platformLabel(platform)}" aria-label="${platformLabel(platform)}">
+      <img src="${freshUrl(PLATFORM_META[platform].icon)}" alt="" loading="lazy">
+      <span>${platformLabel(platform)}</span>
+    </span>
+  `).join('');
+
+  heading.insertAdjacentElement('afterend', labels);
+}
+
 function updateShareButton() {
   const btn = document.getElementById('game-share-btn');
   if (!btn) return;
@@ -163,6 +269,8 @@ async function loadGame(id) {
 
   content.innerHTML = marked.parse(text);
   bustImagesIn(content);
+  normalizePlaySection();
+  insertPlaySectionPlatforms();
 
   const h1 = content.querySelector('h1');
   if (h1) document.title = `${h1.textContent} — adaid`;
