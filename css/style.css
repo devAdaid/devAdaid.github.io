@@ -227,6 +227,49 @@ nav{
   margin-bottom:18px;
 }
 
+.platform-filter{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:-4px 0 18px;
+}
+
+.platform-filter-btn{
+  min-height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:6px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  color:var(--muted);
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.platform-filter-btn img{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+}
+
+.platform-filter-btn:hover{
+  color:var(--text);
+  background:rgba(255,255,255,.08);
+  transform:translateY(-1px);
+}
+
+.platform-filter-btn.active{
+  color:var(--text);
+  border-color:rgba(255,255,255,.28);
+  background:rgba(255,255,255,.14);
+}
+
 /* grid */
 
 .games-grid{
@@ -333,6 +376,7 @@ nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  flex-wrap:wrap;
   gap:10px;
 }
 
@@ -345,6 +389,7 @@ nav{
 
 .card-platforms{
   flex-wrap:wrap;
+  min-width:0;
 }
 
 .card-langs{
@@ -364,8 +409,8 @@ nav{
 }
 
 .card-platform img{
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
   object-fit:contain;
 }
 

@@ -89,6 +89,8 @@ document.write(`<link rel="stylesheet" href="css/style.css?v=${Date.now()}">`);
 
   <p class="section-title" data-i18n="section_games">Games</p>
 
+  <div class="platform-filter" id="platform-filter" aria-label="Platform filter"></div>
+
   <div class="games-grid" id="games-grid">
     <p class="status" data-i18n="loading">불러오는 중...</p>
   </div>
@@ -110,21 +112,24 @@ const ENGINE_LABELS = {
 const PLATFORM_META = {
   computer_web: {
     icon: 'icons/computer_web.png',
-    label: { ko: 'PC 웹', en: 'PC Web', ja: 'PCブラウザ' }
+    label: { ko: '웹 PC', en: 'Web PC', ja: 'PC Web' }
   },
   mobile_web: {
     icon: 'icons/mobile_web.png',
-    label: { ko: '모바일 웹', en: 'Mobile Web', ja: 'モバイルブラウザ' }
+    label: { ko: '웹 모바일', en: 'Web Mobile', ja: 'モバイルWeb' }
   },
   windows: {
     icon: 'icons/windows.png',
-    label: { ko: 'Windows', en: 'Windows', ja: 'Windows' }
+    label: { ko: '윈도우', en: 'Windows', ja: 'Windows' }
   }
 };
+const PLATFORM_ORDER = ['computer_web', 'mobile_web', 'windows'];
+const PLATFORM_ALL_LABELS = { ko: '전체', en: 'All', ja: 'すべて' };
 const CACHE_BUST = Date.now();
 
 let currentLang = 'ko';
 let strings = {};
+let selectedPlatform = 'all';
 
 function freshUrl(path) {
   return `${path}${path.includes('?') ? '&' : '?'}v=${CACHE_BUST}`;
@@ -177,6 +182,123 @@ function platformLabel(platform) {
   return PLATFORM_META[platform]?.label?.[currentLang] || PLATFORM_META[platform]?.label?.en || platform;
 }
 
+function platformAllLabel() {
+  return PLATFORM_ALL_LABELS[currentLang] || PLATFORM_ALL_LABELS.en;
+}
+
+function availablePlatforms(games) {
+  const used = new Set(games.flatMap(g => g.platforms || []));
+  return PLATFORM_ORDER.filter(platform => used.has(platform) && PLATFORM_META[platform]);
+}
+
+function renderPlatformFilter(games) {
+  const filter = document.getElementById('platform-filter');
+  const platforms = availablePlatforms(games);
+
+  if (!platforms.length) {
+    filter.innerHTML = '';
+    filter.hidden = true;
+    selectedPlatform = 'all';
+    return;
+  }
+
+  filter.hidden = false;
+  if (selectedPlatform !== 'all' && !platforms.includes(selectedPlatform)) {
+    selectedPlatform = 'all';
+  }
+
+  filter.innerHTML = `
+    <button class="platform-filter-btn${selectedPlatform === 'all' ? ' active' : ''}"
+            type="button"
+            data-platform="all"
+            aria-pressed="${selectedPlatform === 'all'}">
+      ${platformAllLabel()}
+    </button>
+    ${platforms.map(p => `
+      <button class="platform-filter-btn${selectedPlatform === p ? ' active' : ''}"
+              type="button"
+              data-platform="${p}"
+              title="${platformLabel(p)}"
+              aria-label="${platformLabel(p)}"
+              aria-pressed="${selectedPlatform === p}">
+        <img src="${freshUrl(PLATFORM_META[p].icon)}" alt="" loading="lazy">
+        <span>${platformLabel(p)}</span>
+      </button>
+    `).join('')}
+  `;
+}
+
+function renderGameCards(games) {
+  const grid = document.getElementById('games-grid');
+  const filteredGames = selectedPlatform === 'all'
+    ? games
+    : games.filter(g => g.platforms?.includes(selectedPlatform));
+
+  if (!filteredGames.length) {
+    grid.innerHTML = `<p class="status">${strings.no_games || ''}</p>`;
+    return;
+  }
+
+  grid.innerHTML = filteredGames.map(g => `
+    <a class="game-card"
+       href="game.html?id=${encodeURIComponent(g.id)}">
+
+      <div class="card-thumb-wrap">
+        ${g.thumbnail
+          ? `<img class="card-thumb"
+                 src="${freshUrl(g.thumbnail)}"
+                 alt="${loc(g, 'title')}"
+                 loading="lazy">`
+          : `<div class="card-thumb-placeholder">No Image</div>`
+        }
+        ${g.award ? `<img class="card-award" src="${freshUrl('icons/award.svg')}" alt="award">` : ''}
+        ${g.engine ? `<img class="card-engine" src="${freshUrl(`icons/${g.engine}.png`)}" alt="${ENGINE_LABELS[g.engine] || g.engine}" title="${ENGINE_LABELS[g.engine] || g.engine}" loading="lazy">` : ''}
+      </div>
+
+      <div class="card-body">
+        <p class="card-title">${loc(g, 'title')}</p>
+
+        ${loc(g, 'description')
+          ? `<div class="card-tags">${loc(g, 'description').split(',').map(t => `<span class="card-tag">${t.trim()}</span>`).join('')}</div>`
+          : ''
+        }
+
+        ${loc(g, 'tagline')
+          ? `<p class="card-tagline">${loc(g, 'tagline')}</p>`
+          : ''
+        }
+
+        ${g.platforms?.length || g.languages?.length
+          ? `<div class="card-meta">
+              ${g.platforms?.length
+                ? `<div class="card-platforms">
+                    ${g.platforms.map(p => PLATFORM_META[p]
+                      ? `<span class="card-platform" title="${platformLabel(p)}" aria-label="${platformLabel(p)}">
+                          <img src="${freshUrl(PLATFORM_META[p].icon)}" alt="" loading="lazy">
+                        </span>`
+                      : ''
+                    ).join('')}
+                  </div>`
+                : '<span></span>'
+              }
+              ${g.languages?.length
+                ? `<p class="card-langs">${g.languages.map(l => `<span class="fi fi-${LANG_FLAGS[l] ?? l}" title="${l}"></span>`).join('')}</p>`
+                : ''
+              }
+            </div>`
+          : ''
+        }
+      </div>
+
+    </a>
+  `).join('');
+
+  document.querySelectorAll('.game-card').forEach((card, i) => {
+    card.style.animationDelay = `${i * 0.08}s`;
+    card.classList.add('show');
+  });
+}
+
 async function loadGames() {
   const grid = document.getElementById('games-grid');
   grid.innerHTML = `<p class="status">${strings.loading || '...'}</p>`;
@@ -192,69 +314,20 @@ async function loadGames() {
       return;
     }
 
-    grid.innerHTML = games.map(g => `
-      <a class="game-card"
-         href="game.html?id=${encodeURIComponent(g.id)}">
-
-        <div class="card-thumb-wrap">
-          ${g.thumbnail
-            ? `<img class="card-thumb"
-                   src="${freshUrl(g.thumbnail)}"
-                   alt="${loc(g, 'title')}"
-                   loading="lazy">`
-            : `<div class="card-thumb-placeholder">No Image</div>`
-          }
-          ${g.award ? `<img class="card-award" src="${freshUrl('icons/award.svg')}" alt="award">` : ''}
-          ${g.engine ? `<img class="card-engine" src="${freshUrl(`icons/${g.engine}.png`)}" alt="${ENGINE_LABELS[g.engine] || g.engine}" title="${ENGINE_LABELS[g.engine] || g.engine}" loading="lazy">` : ''}
-        </div>
-
-        <div class="card-body">
-          <p class="card-title">${loc(g, 'title')}</p>
-
-          ${loc(g, 'description')
-            ? `<div class="card-tags">${loc(g, 'description').split(',').map(t => `<span class="card-tag">${t.trim()}</span>`).join('')}</div>`
-            : ''
-          }
-
-          ${loc(g, 'tagline')
-            ? `<p class="card-tagline">${loc(g, 'tagline')}</p>`
-            : ''
-          }
-
-          ${g.platforms?.length || g.languages?.length
-            ? `<div class="card-meta">
-                ${g.platforms?.length
-                  ? `<div class="card-platforms">
-                      ${g.platforms.map(p => PLATFORM_META[p]
-                        ? `<span class="card-platform" title="${platformLabel(p)}" aria-label="${platformLabel(p)}">
-                            <img src="${freshUrl(PLATFORM_META[p].icon)}" alt="" loading="lazy">
-                          </span>`
-                        : ''
-                      ).join('')}
-                    </div>`
-                  : '<span></span>'
-                }
-                ${g.languages?.length
-                  ? `<p class="card-langs">${g.languages.map(l => `<span class="fi fi-${LANG_FLAGS[l] ?? l}" title="${l}"></span>`).join('')}</p>`
-                  : ''
-                }
-              </div>`
-            : ''
-          }
-        </div>
-
-      </a>
-    `).join('');
-
-    document.querySelectorAll('.game-card').forEach((card, i) => {
-      card.style.animationDelay = `${i * 0.08}s`;
-      card.classList.add('show');
-    });
+    renderPlatformFilter(games);
+    renderGameCards(games);
 
   } catch(e) {
     grid.innerHTML = `<p class="status">${strings.load_error || 'Error'}</p>`;
   }
 }
+
+document.getElementById('platform-filter').addEventListener('click', e => {
+  const btn = e.target.closest('.platform-filter-btn');
+  if (!btn) return;
+  selectedPlatform = btn.dataset.platform;
+  loadGames();
+});
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => changeLang(btn.dataset.lang));
