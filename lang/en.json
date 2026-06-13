@@ -7,6 +7,7 @@
   "no_games": "No games registered yet.",
   "load_error": "Failed to load games.json.",
   "footer": "© 2026 adaid Portfolio",
+  "social_x": "X (Twitter)",
   "social_postype": "Postype",
   "social_gameping": "GamePing",
   "social_notion": "Notion",

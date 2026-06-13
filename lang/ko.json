@@ -7,6 +7,7 @@
   "no_games": "아직 등록된 게임이 없습니다.",
   "load_error": "games.json을 불러올 수 없습니다.",
   "footer": "© 2026 adaid Portfolio",
+  "social_x": "X (트위터)",
   "social_postype": "포스타입",
   "social_gameping": "게임핑",
   "social_notion": "노션",
