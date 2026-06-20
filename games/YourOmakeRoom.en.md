@@ -2,6 +2,7 @@
 
 ![Thumbnail](../games/YourOmakeRoom/thumb.png)
 
+**Grand Prize Winner at the '베개갯 Game Jam'!**
 **Genre:** Experimental, Comedy, Drama, Horror
 **Development Period:** 2026.05.15 ~ 2026.06.03
 **Role:** Overall Production
@@ -34,6 +35,7 @@ An RPG Maker game that unfolds as you move between different RPG Maker games. Hu
 
 A story-driven game in which the protagonist, Lee Hana, plays RPG Maker games created by her friend Baek Ihan.
 It includes light puzzle elements and horror elements.
+Players who have played a lot of RPG Maker games may find the experience especially meaningful.
 
 
 ## Screenshots

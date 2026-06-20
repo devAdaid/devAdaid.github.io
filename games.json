@@ -1,5 +1,23 @@
 [
   {
+    "id": "YourOmakeRoom",
+    "title": "너의 오마케룸",
+    "title_en": "Your Omake Room",
+    "title_ja": "君のオマケルーム",
+    "thumbnail": "games/YourOmakeRoom/thumb.png",
+    "engine": "rpgmakermz",
+    "qr": "games/YourOmakeRoom/QR.png",
+    "description": "실험적, 코미디, 드라마, 공포",
+    "description_en": "Experimental, Comedy, Drama, Horror",
+    "description_ja": "実験的, コメディ, ドラマ, ホラー",
+    "tagline": "서로 다른 쯔꾸르 게임을 오가며 진행하는 쯔꾸르 게임. 유머, 감동, 그리고 공포.",
+    "tagline_en": "An RPG Maker game that unfolds as you move between different RPG Maker games. Humor, heart, and horror.",
+    "tagline_ja": "さまざまなツクールゲームを行き来しながら進めるツクールゲーム。ユーモア、感動、そしてホラー。",
+    "award": true,
+    "platforms": ["computer_web", "windows"],
+    "languages": ["ko"]
+  },
+  {
     "id": "TheLastWave",
     "title": "The Last Wave",
     "thumbnail": "games/TheLastWave/thumb.png",
@@ -30,24 +48,6 @@
     "tagline_en": "A nonlinear mystery puzzle game where you control robots to uncover the secrets of a spaceship.",
     "tagline_ja": "ロボットを操作して宇宙船の秘密を解明する、非線形推理ミステリーパズルゲーム。",
     "award": true,
-    "platforms": ["computer_web", "windows"],
-    "languages": ["ko"]
-  },
-  {
-    "id": "YourOmakeRoom",
-    "title": "너의 오마케룸",
-    "title_en": "Your Omake Room",
-    "title_ja": "君のオマケルーム",
-    "thumbnail": "games/YourOmakeRoom/thumb.png",
-    "engine": "rpgmakermz",
-    "qr": "games/YourOmakeRoom/QR.png",
-    "description": "실험적, 코미디, 드라마, 공포",
-    "description_en": "Experimental, Comedy, Drama, Horror",
-    "description_ja": "実験的, コメディ, ドラマ, ホラー",
-    "tagline": "서로 다른 쯔꾸르 게임을 오가며 진행하는 쯔꾸르 게임. 유머, 감동, 그리고 공포.",
-    "tagline_en": "An RPG Maker game that unfolds as you move between different RPG Maker games. Humor, heart, and horror.",
-    "tagline_ja": "さまざまなツクールゲームを行き来しながら進めるツクールゲーム。ユーモア、感動、そしてホラー。",
-    "award": false,
     "platforms": ["computer_web", "windows"],
     "languages": ["ko"]
   },
