@@ -227,12 +227,25 @@ nav{
   margin-bottom:18px;
 }
 
+.platform-filter-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  margin:-4px 0 18px;
+}
+
 .platform-filter{
   display:flex;
   align-items:center;
   flex-wrap:wrap;
   gap:8px;
-  margin:-4px 0 18px;
+}
+
+.platform-filter-note{
+  color:var(--sub);
+  font-size:12px;
+  line-height:1.5;
 }
 
 .platform-filter-btn{
@@ -667,6 +680,10 @@ article{
 /* mobile */
 
 @media(max-width:700px){
+
+  .platform-filter-note{
+    width:100%;
+  }
 
   .wrap{
     padding:0 16px 60px;

@@ -89,7 +89,10 @@ document.write(`<link rel="stylesheet" href="css/style.css?v=${Date.now()}">`);
 
   <p class="section-title" data-i18n="section_games">Games</p>
 
-  <div class="platform-filter" id="platform-filter" aria-label="Platform filter"></div>
+  <div class="platform-filter-row">
+    <div class="platform-filter" id="platform-filter" aria-label="Platform filter"></div>
+    <p class="platform-filter-note" data-i18n="web_play_note">* 웹 플레이는 다운로드 없이 플레이 가능합니다.</p>
+  </div>
 
   <div class="games-grid" id="games-grid">
     <p class="status" data-i18n="loading">불러오는 중...</p>
